@@ -1,34 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-
     private SpriteRenderer spriteRenderer;
     public Sprite[] sprites;
     public LayerMask obstacleLayer;
     public Color highlightColor;
-
     private bool isReachable;
+    private bool isCreateable;
 
-    // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = sprites[Random.Range(0, sprites.Length)];
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     private void OnMouseDown()
     {
         if (isReachable && GameMaster.current.selectedUnit != null)
         {
             GameMaster.current.selectedUnit.MoveTo(transform.position);
+        }
+        else if (isCreateable)
+        {
+            ShopableItem item = Instantiate(GameMaster.current.GetAndPayForShopSelectedItem(), new Vector3(transform.position.x, transform.position.y, -1), Quaternion.identity);
+            GameMaster.current.ResetTiles();
+            if (item.TryGetComponent<Unit>(out Unit unit))
+            {
+                unit.hasMoved = true;
+                unit.currentRemainingAttacks = 0;
+            }
+
         }
     }
 
@@ -42,16 +44,23 @@ public class Tile : MonoBehaviour
         return true;
     }
 
-    public void Highlight()
+    public void HighlightReachable()
     {
         spriteRenderer.color = highlightColor;
         isReachable = true;
+    }
+
+    public void HighlightCreateable()
+    {
+        spriteRenderer.color = highlightColor;
+        isCreateable = true;
     }
 
     public void Reset()
     {
         spriteRenderer.color = Color.white;
         isReachable = false;
+        isCreateable = false;
     }
 
 }

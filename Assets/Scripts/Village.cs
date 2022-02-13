@@ -1,8 +1,6 @@
-using UnityEngine;
 
-public class Village : MonoBehaviour
+public class Village : ShopableItem
 {
     public int incomePerTurn;
     public Player owner;
-
 }

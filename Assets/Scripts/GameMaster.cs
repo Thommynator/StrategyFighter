@@ -1,21 +1,25 @@
 using System;
 using UnityEngine;
+using UnityEditor;
 using System.Linq;
 
 public class GameMaster : MonoBehaviour
 {
 
     public static GameMaster current;
+    public CursorFollower cursorFollower;
     public Unit selectedUnit;
+    public ShopItem shopSelectedItem;
+
     [SerializeField] private GameObject tileBorderHighlight;
     [SerializeField] private TurnIndicator turnIndicator;
 
     [Header("Player1")]
-    [SerializeField] private PlayerGold playerGold1;
+    [SerializeField] public PlayerGold playerGold1;
     [SerializeField] private Shop shop1;
 
     [Header("Player2")]
-    [SerializeField] private PlayerGold playerGold2;
+    [SerializeField] public PlayerGold playerGold2;
     [SerializeField] private Shop shop2;
 
 
@@ -55,6 +59,11 @@ public class GameMaster : MonoBehaviour
         return turnIndicator.currentPlayer;
     }
 
+    public bool IsCurrentPlayerByTag(String tag)
+    {
+        return tag == "Player1" && GetCurrentPlayer() == Player.PLAYER1 || tag == "Player2" && GetCurrentPlayer() == Player.PLAYER2;
+    }
+
     private void GetGoldIncomeFor(Player player)
     {
         int income = FindObjectsOfType<Village>().Where(v => v.owner == player).Sum(v => v.incomePerTurn);
@@ -82,7 +91,7 @@ public class GameMaster : MonoBehaviour
         foreach (Unit unit in FindObjectsOfType<Unit>())
         {
             unit.hasMoved = false;
-            unit.hasAttacked = false;
+            unit.currentRemainingAttacks = unit.stats.numberOfAttacks;
             unit.attackIcon.SetActive(false);
         }
         ConfigureShopView();
@@ -102,6 +111,36 @@ public class GameMaster : MonoBehaviour
             tile.Reset();
         }
     }
+
+    public void SetShopSelectedItem(ShopItem shopItem)
+    {
+        if (selectedUnit != null)
+        {
+            selectedUnit.isSelected = false;
+            selectedUnit = null;
+        }
+        this.shopSelectedItem = shopItem;
+
+        // FIXME doesn't work yet
+        // Texture2D texture = AssetPreview.GetAssetPreview(placeableItem.gameObject);
+        // Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        // cursorFollower.SetCursorSprite(sprite);
+    }
+
+    public ShopableItem GetAndPayForShopSelectedItem()
+    {
+        Player player = GetCurrentPlayer();
+        if (player == Player.PLAYER1)
+        {
+            playerGold1.DecreaseGold(shopSelectedItem.costs);
+        }
+        else if (player == Player.PLAYER2)
+        {
+            playerGold2.DecreaseGold(shopSelectedItem.costs);
+        }
+        return shopSelectedItem.shopableItem;
+    }
+
 
 }
 

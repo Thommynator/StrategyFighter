@@ -193,8 +193,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7012452748861817561}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.11, y: 0.2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.001, y: 0.2, z: 0}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children:
   - {fileID: 7012452748719018292}
   - {fileID: 7012452749806039980}
@@ -227,7 +227,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7012452749473416645}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.268, y: -0.314, z: 1.56593}
+  m_LocalPosition: {x: 0.168, y: -0.314, z: 1.56593}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7012452748861817542}
@@ -378,12 +378,12 @@ GameObject:
   m_Component:
   - component: {fileID: 7012452749804648996}
   - component: {fileID: 8218094315468102155}
-  - component: {fileID: 7256302989665520092}
+  - component: {fileID: 7553292895704165744}
   - component: {fileID: 3643103335579232135}
   - component: {fileID: 4042077865998251173}
   m_Layer: 6
   m_Name: BlueKnight
-  m_TagString: Untagged
+  m_TagString: Player2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -397,7 +397,7 @@ Transform:
   m_GameObject: {fileID: 7012452749804648999}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.1703067, y: -0.6053267, z: -1.5659297}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children:
   - {fileID: 7012452748861817542}
   - {fileID: 2214296408526393214}
@@ -423,7 +423,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7256302989665520092
+--- !u!114 &7553292895704165744
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -432,24 +432,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 7012452749804648999}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c48312bf78e18047a55ebb99708ae4b, type: 3}
+  m_Script: {fileID: 11500000, guid: b4143d1a67319204d8e6a48370babcf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: 1
-  killParticleFx: {fileID: 2813643798489853881, guid: 2a0341a87f34fdc4d90f6959632dcc7c, type: 3}
-  isSelected: 0
-  movementRange: 3
-  movementSpeed: 5
-  hasMoved: 0
-  attackRange: 1
-  hasAttacked: 0
-  enemiesInRange: []
+  stats: {fileID: 11400000, guid: baa40deeb2f72ef489cebdcb4c434319, type: 2}
   attackIcon: {fileID: 7736807444666161601}
-  damageIconPrefab: {fileID: 6630073751119711733, guid: 3b2e4f54b64cab647a366838568cbe30, type: 3}
-  health: 5
-  armor: 2
-  attackDamage: 4
-  defenseDamage: 3
+  isSelected: 0
+  hasMoved: 0
+  hasAttacked: 0
 --- !u!114 &3643103335579232135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -514,7 +504,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7012452749806039983}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.302, z: 1.56593}
+  m_LocalPosition: {x: -0.1, y: -0.302, z: 1.56593}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7012452748861817542}

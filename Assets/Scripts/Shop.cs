@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 public class Shop : MonoBehaviour
 {
     [SerializeField] private GameObject shop;
@@ -23,13 +24,35 @@ public class Shop : MonoBehaviour
         bool isPlayerTurn = currentPlayer == shopOwner;
         toggleButton.interactable = isPlayerTurn;
         shop.SetActive(isPlayerTurn && shouldShow);
-
     }
 
     public void Toggle()
     {
         shouldShow = !shouldShow;
         shop.SetActive(shouldShow);
+    }
+
+    public void BuyItem(ShopItem item)
+    {
+        GameMaster gm = GameMaster.current;
+        PlayerGold playerGold = shopOwner == Player.PLAYER1 ? gm.playerGold1 : gm.playerGold2;
+
+        if (item.costs > playerGold.GetGold())
+        {
+            print($"Not enough gold! {item.shopableItem.name} costs {item.costs} gold, you only have {playerGold.GetGold()}.");
+            return;
+        }
+        Toggle();
+        gm.SetShopSelectedItem(item);
+        ShowCreateableTiles();
+    }
+
+    private void ShowCreateableTiles()
+    {
+        foreach (Tile tile in FindObjectsOfType<Tile>().Where(tile => tile.IsClear()))
+        {
+            tile.HighlightCreateable();
+        }
     }
 
 

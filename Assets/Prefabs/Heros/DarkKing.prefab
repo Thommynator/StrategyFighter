@@ -258,12 +258,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2332454404198451488}
-  - component: {fileID: 2332454404198451519}
+  - component: {fileID: 444874137161024878}
+  - component: {fileID: 4018002220525720372}
   - component: {fileID: 2332454404198451489}
   - component: {fileID: 2332454404198451490}
   m_Layer: 6
   m_Name: DarkKing
-  m_TagString: Untagged
+  m_TagString: Player1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -284,7 +285,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2332454404198451519
+--- !u!114 &444874137161024878
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -293,24 +294,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 2332454404198451518}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c48312bf78e18047a55ebb99708ae4b, type: 3}
+  m_Script: {fileID: 11500000, guid: f2f3f8f3cc43cea4aa4f863343c8f5d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: 0
-  killParticleFx: {fileID: 2813643798489853881, guid: 2a0341a87f34fdc4d90f6959632dcc7c, type: 3}
-  isSelected: 0
-  movementRange: 4
-  movementSpeed: 5
-  hasMoved: 0
-  attackRange: 1
-  hasAttacked: 0
-  enemiesInRange: []
+  stats: {fileID: 11400000, guid: 5b112880c7b49764c9e115c7d6afff09, type: 2}
   attackIcon: {fileID: 195930158013441003}
-  damageIconPrefab: {fileID: 6630073751119711733, guid: 3b2e4f54b64cab647a366838568cbe30, type: 3}
-  health: 15
-  armor: 2
-  attackDamage: 6
-  defenseDamage: 3
+  isSelected: 0
+  hasMoved: 0
+  hasAttacked: 0
+  kingHealthText: {fileID: 0}
+--- !u!114 &4018002220525720372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2332454404198451518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ff416605d715ce4fbdbe7dc744d169e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverZoomEffectStrength: 0.2
 --- !u!61 &2332454404198451489
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -486,7 +491,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2514872938215169925, guid: ee298dd672261bd4c99e3f0c2ce8125c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6269842082995751226, guid: ee298dd672261bd4c99e3f0c2ce8125c, type: 3}
       propertyPath: m_RootOrder

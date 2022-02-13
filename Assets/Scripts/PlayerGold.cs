@@ -30,4 +30,9 @@ public class PlayerGold : MonoBehaviour
         },
         target, changeAnimationDuration).SetEase(Ease.InOutQuad);
     }
+
+    public int GetGold()
+    {
+        return amount;
+    }
 }

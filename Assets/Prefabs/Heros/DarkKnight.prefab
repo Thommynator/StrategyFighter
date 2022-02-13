@@ -176,12 +176,12 @@ GameObject:
   m_Component:
   - component: {fileID: 8937906082404848484}
   - component: {fileID: 8471432206982796673}
-  - component: {fileID: 8809666445429858353}
+  - component: {fileID: 6112919694127206322}
   - component: {fileID: 7287415380488220897}
   - component: {fileID: 5063505421935217046}
   m_Layer: 6
   m_Name: DarkKnight
-  m_TagString: Untagged
+  m_TagString: Player1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -221,7 +221,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8809666445429858353
+--- !u!114 &6112919694127206322
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -230,24 +230,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 8937906082404848487}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c48312bf78e18047a55ebb99708ae4b, type: 3}
+  m_Script: {fileID: 11500000, guid: b4143d1a67319204d8e6a48370babcf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: 0
-  killParticleFx: {fileID: 2813643798489853881, guid: 2a0341a87f34fdc4d90f6959632dcc7c, type: 3}
-  isSelected: 0
-  movementRange: 3
-  movementSpeed: 5
-  hasMoved: 0
-  attackRange: 1
-  hasAttacked: 0
-  enemiesInRange: []
+  stats: {fileID: 11400000, guid: baa40deeb2f72ef489cebdcb4c434319, type: 2}
   attackIcon: {fileID: 9021984187267777219}
-  damageIconPrefab: {fileID: 6630073751119711733, guid: 3b2e4f54b64cab647a366838568cbe30, type: 3}
-  health: 5
-  armor: 2
-  attackDamage: 4
-  defenseDamage: 3
+  isSelected: 0
+  hasMoved: 0
+  hasAttacked: 0
 --- !u!114 &7287415380488220897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -665,6 +655,10 @@ PrefabInstance:
     - target: {fileID: 2514872938215169925, guid: ee298dd672261bd4c99e3f0c2ce8125c, type: 3}
       propertyPath: m_Name
       value: AttackIcon
+      objectReference: {fileID: 0}
+    - target: {fileID: 2514872938215169925, guid: ee298dd672261bd4c99e3f0c2ce8125c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6269842082995751226, guid: ee298dd672261bd4c99e3f0c2ce8125c, type: 3}
       propertyPath: m_RootOrder

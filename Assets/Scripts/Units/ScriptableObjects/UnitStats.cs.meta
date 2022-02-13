@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 9d965e38260dd91419b4336e8b703f90
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - killParticleFx: {fileID: 2813643798489853881, guid: 2a0341a87f34fdc4d90f6959632dcc7c, type: 3}
+  - damageIconPrefab: {fileID: 6630073751119711733, guid: 3b2e4f54b64cab647a366838568cbe30, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
