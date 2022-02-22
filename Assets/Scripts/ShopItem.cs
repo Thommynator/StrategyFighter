@@ -8,7 +8,7 @@ public class ShopItem : MonoBehaviour
     public Shop shop;
     public int costs;
     private TextMeshProUGUI costsText;
-    public ShopableItem shopableItem;
+    public Unit unit;
 
 
     void Start()
@@ -19,7 +19,7 @@ public class ShopItem : MonoBehaviour
 
     public void TryToBuyThisItem()
     {
-        shop.BuyItem(this);
+        shop.PutItemIntoBasket(this);
     }
 
 }

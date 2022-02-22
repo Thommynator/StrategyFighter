@@ -10,6 +10,7 @@ public class PlayerGold : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private TextMeshProUGUI goldText;
     [SerializeField] private float changeAnimationDuration;
+    [SerializeField] private List<AudioClip> coinSounds;
 
     public void IncreaseGold(int increase)
     {
@@ -23,6 +24,7 @@ public class PlayerGold : MonoBehaviour
 
     private void SetGold(int target)
     {
+        SoundManager.instance.PlayRandomAudio(coinSounds);
         DOTween.To(() => amount, x =>
         {
             amount = x;

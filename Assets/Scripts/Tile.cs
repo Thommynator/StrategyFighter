@@ -23,7 +23,7 @@ public class Tile : MonoBehaviour
         }
         else if (isCreateable)
         {
-            ShopableItem item = Instantiate(GameMaster.current.GetAndPayForShopSelectedItem(), new Vector3(transform.position.x, transform.position.y, -1), Quaternion.identity);
+            Unit item = Instantiate(GameMaster.current.GetAndPayForShopSelectedItem(), new Vector3(transform.position.x, transform.position.y, -1), Quaternion.identity);
             GameMaster.current.ResetTiles();
             if (item.TryGetComponent<Unit>(out Unit unit))
             {

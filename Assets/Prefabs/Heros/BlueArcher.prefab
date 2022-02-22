@@ -138,7 +138,16 @@ MonoBehaviour:
   attackIcon: {fileID: 960193210312744048}
   isSelected: 0
   hasMoved: 0
-  hasAttacked: 0
+  currentRemainingAttacks: 0
+  dieSounds:
+  - {fileID: 8300000, guid: d67acf9d7b1a1464194a95c375729ddd, type: 3}
+  - {fileID: 8300000, guid: 8aeb1614920adae479529c4abcdae90c, type: 3}
+  attackSounds:
+  - {fileID: 8300000, guid: 0c30cbbcb8d261f4aa0a391e95b1b826, type: 3}
+  hitSounds:
+  - {fileID: 8300000, guid: e5188da2822e5af46821698b624dc23e, type: 3}
+  - {fileID: 8300000, guid: cac9c12c35e2b924b90d0fa5583c8f8b, type: 3}
+  - {fileID: 8300000, guid: fd118a2cdb3c3774e8c2ba8ed6288e30, type: 3}
 --- !u!61 &8412318018458090877
 BoxCollider2D:
   m_ObjectHideFlags: 0

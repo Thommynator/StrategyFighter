@@ -12,6 +12,7 @@ public class TurnIndicator : MonoBehaviour
     public Sprite player1;
     public Sprite player2;
     private float initialBannerYPos;
+    [SerializeField] private AudioClip turnSound;
 
     void Start()
     {
@@ -22,6 +23,7 @@ public class TurnIndicator : MonoBehaviour
     public void SwitchTurn()
     {
         currentPlayer = currentPlayer == Player.PLAYER1 ? Player.PLAYER2 : Player.PLAYER1;
+        SoundManager.instance.PlayAudio(turnSound);
         ChangeBannerTo(currentPlayer);
     }
 

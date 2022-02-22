@@ -127,7 +127,7 @@ public class GameMaster : MonoBehaviour
         // cursorFollower.SetCursorSprite(sprite);
     }
 
-    public ShopableItem GetAndPayForShopSelectedItem()
+    public Unit GetAndPayForShopSelectedItem()
     {
         Player player = GetCurrentPlayer();
         if (player == Player.PLAYER1)
@@ -138,7 +138,7 @@ public class GameMaster : MonoBehaviour
         {
             playerGold2.DecreaseGold(shopSelectedItem.costs);
         }
-        return shopSelectedItem.shopableItem;
+        return shopSelectedItem.unit;
     }
 
 

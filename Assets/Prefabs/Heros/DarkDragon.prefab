@@ -219,6 +219,15 @@ MonoBehaviour:
   isSelected: 0
   hasMoved: 0
   currentRemainingAttacks: 0
+  dieSounds:
+  - {fileID: 8300000, guid: d67acf9d7b1a1464194a95c375729ddd, type: 3}
+  - {fileID: 8300000, guid: 8aeb1614920adae479529c4abcdae90c, type: 3}
+  attackSounds:
+  - {fileID: 8300000, guid: cdb787885cb238c42b21b719e2dc313e, type: 3}
+  hitSounds:
+  - {fileID: 8300000, guid: e5188da2822e5af46821698b624dc23e, type: 3}
+  - {fileID: 8300000, guid: cac9c12c35e2b924b90d0fa5583c8f8b, type: 3}
+  - {fileID: 8300000, guid: fd118a2cdb3c3774e8c2ba8ed6288e30, type: 3}
 --- !u!114 &6142423354377577002
 MonoBehaviour:
   m_ObjectHideFlags: 0

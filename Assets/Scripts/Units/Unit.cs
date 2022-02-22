@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class Unit : ShopableItem
+public class Unit : MonoBehaviour
 {
     public UnitStats stats;
     public GameObject attackIcon;
@@ -12,6 +12,11 @@ public class Unit : ShopableItem
     protected int currentHealth;
     private List<Unit> enemiesInRange = new List<Unit>();
     private StatsView statsView;
+
+    [Header("Sounds")]
+    [SerializeField] private List<AudioClip> dieSounds;
+    [SerializeField] private List<AudioClip> attackSounds;
+    [SerializeField] private List<AudioClip> hitSounds;
 
     protected virtual void Start()
     {
@@ -179,6 +184,7 @@ public class Unit : ShopableItem
         currentHealth -= damage;
         CameraShaker.current.Shake(CameraShaker.ShakeStrength.WEAK);
         CheckForDeath();
+        SoundManager.instance.PlayRandomAudio(hitSounds);
     }
 
     protected void DealDamage(Unit enemy, int damage)
@@ -187,7 +193,7 @@ public class Unit : ShopableItem
         {
             return;
         }
-
+        SoundManager.instance.PlayRandomAudio(attackSounds);
         DamageIcon damageIcon = Instantiate(stats.damageIconPrefab, enemy.transform.position, Quaternion.identity);
         damageIcon.ChooseIconBasedOnDamage(damage);
         enemy.TakeDamage(damage);
@@ -202,7 +208,7 @@ public class Unit : ShopableItem
         statsView.HideStats();
         Instantiate(stats.killParticleFx, transform.position, Quaternion.identity);
         GameMaster gm = GameMaster.current;
-
+        SoundManager.instance.PlayRandomAudio(dieSounds);
         // self-killed, i.e. died in own turn
         if (gm.IsCurrentPlayerByTag(this.tag))
         {

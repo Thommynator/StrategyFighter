@@ -32,14 +32,14 @@ public class Shop : MonoBehaviour
         shop.SetActive(shouldShow);
     }
 
-    public void BuyItem(ShopItem item)
+    public void PutItemIntoBasket(ShopItem item)
     {
         GameMaster gm = GameMaster.current;
         PlayerGold playerGold = shopOwner == Player.PLAYER1 ? gm.playerGold1 : gm.playerGold2;
 
         if (item.costs > playerGold.GetGold())
         {
-            print($"Not enough gold! {item.shopableItem.name} costs {item.costs} gold, you only have {playerGold.GetGold()}.");
+            print($"Not enough gold! {item.unit} costs {item.costs} gold, you only have {playerGold.GetGold()}.");
             return;
         }
         Toggle();
