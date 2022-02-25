@@ -248,6 +248,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e5188da2822e5af46821698b624dc23e, type: 3}
   - {fileID: 8300000, guid: cac9c12c35e2b924b90d0fa5583c8f8b, type: 3}
   - {fileID: 8300000, guid: fd118a2cdb3c3774e8c2ba8ed6288e30, type: 3}
+  selectSound: {fileID: 8300000, guid: 0d27024aa3778594b80dfbda29459eae, type: 3}
+  placementSound: {fileID: 8300000, guid: 4e65fea3a57301b44942831cbb56df1d, type: 3}
 --- !u!114 &7287415380488220897
 MonoBehaviour:
   m_ObjectHideFlags: 0

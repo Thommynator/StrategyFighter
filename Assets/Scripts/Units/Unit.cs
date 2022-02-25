@@ -17,6 +17,10 @@ public class Unit : MonoBehaviour
     [SerializeField] private List<AudioClip> dieSounds;
     [SerializeField] private List<AudioClip> attackSounds;
     [SerializeField] private List<AudioClip> hitSounds;
+    [SerializeField] private AudioClip selectSound;
+    [SerializeField] private AudioClip placementSound;
+
+
 
     protected virtual void Start()
     {
@@ -62,6 +66,7 @@ public class Unit : MonoBehaviour
 
             isSelected = true;
             GameMaster.current.selectedUnit = this;
+            PlaySelectSound();
             GameMaster.current.ResetTiles();
 
             GetEnemiesInRange();
@@ -220,5 +225,15 @@ public class Unit : MonoBehaviour
     public int GetCurrentHealth()
     {
         return currentHealth;
+    }
+
+    public void PlaySelectSound()
+    {
+        SoundManager.instance.PlayAudio(selectSound);
+    }
+
+    public void PlayPlacementSound()
+    {
+        SoundManager.instance.PlayAudio(placementSound);
     }
 }

@@ -15,10 +15,10 @@ MonoBehaviour:
   movementRange: 0
   movementSpeed: 0
   killParticleFx: {fileID: 2813643798489853881, guid: 2a0341a87f34fdc4d90f6959632dcc7c, type: 3}
-  attackRange: 0
+  attackRange: 1
   damageIconPrefab: {fileID: 6630073751119711733, guid: 3b2e4f54b64cab647a366838568cbe30, type: 3}
   numberOfAttacks: 0
   health: 5
   armor: 0
   attackDamage: 0
-  defenseDamage: 1
+  defenseDamage: 3

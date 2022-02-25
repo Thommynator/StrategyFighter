@@ -27,6 +27,7 @@ public class Tile : MonoBehaviour
             GameMaster.current.ResetTiles();
             if (item.TryGetComponent<Unit>(out Unit unit))
             {
+                unit.PlayPlacementSound();
                 unit.hasMoved = true;
                 unit.currentRemainingAttacks = 0;
             }

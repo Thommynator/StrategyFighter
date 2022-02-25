@@ -10,19 +10,13 @@ public class King : Unit
         UpdateKingHealthText();
     }
 
-    protected override void Attack(Unit enemy)
-    {
-        base.Attack(enemy);
-        UpdateKingHealthText();
-        if (currentHealth <= 0)
-        {
-            print("GAME OVER");
-        }
-    }
-
     protected override void TakeDamage(int damage)
     {
         base.TakeDamage(damage);
+        if (currentHealth <= 0)
+        {
+            GameMaster.current.GameOver(GameMaster.current.GetPlayerByTag(tag));
+        }
         UpdateKingHealthText();
     }
 
