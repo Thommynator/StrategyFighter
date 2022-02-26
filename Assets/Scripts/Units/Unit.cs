@@ -27,7 +27,6 @@ public class Unit : MonoBehaviour
         attackIcon.SetActive(false);
         currentHealth = stats.health;
         statsView = FindObjectOfType<StatsView>();
-        currentRemainingAttacks = stats.numberOfAttacks;
     }
 
     protected void OnMouseOver()
