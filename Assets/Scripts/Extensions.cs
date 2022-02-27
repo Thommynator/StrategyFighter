@@ -10,4 +10,9 @@ public static class Extension
     {
         return player == Player.PLAYER1 ? Player.PLAYER2 : Player.PLAYER1;
     }
+
+    public static bool IsPositive(this int number)
+    {
+        return number >= 0;
+    }
 }

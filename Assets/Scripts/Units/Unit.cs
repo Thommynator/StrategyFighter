@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System.Linq;
 
 public class Unit : MonoBehaviour
 {
@@ -144,10 +145,14 @@ public class Unit : MonoBehaviour
                 {
                     HideAllAttackIcons();
                     GetEnemiesInRange();
+                    hasMoved = true;
+
+                    if (!CanMove() && !CanAttack())
+                    {
+                        GrayOut();
+                    }
                 })
             );
-        hasMoved = true;
-
     }
 
     protected bool HasRemainingAttacks()
@@ -175,6 +180,11 @@ public class Unit : MonoBehaviour
         }
 
         GetWalkableTiles(); // check again, because maybe a previously blocking enemy might be dead now
+
+        if (!CanMove() && !CanAttack())
+        {
+            GrayOut();
+        }
     }
 
     protected virtual void TakeDamage(int damage)
@@ -234,5 +244,48 @@ public class Unit : MonoBehaviour
     public void PlayPlacementSound()
     {
         SoundManager.instance.PlayAudio(placementSound);
+    }
+
+    public void GrayOut()
+    {
+        SpriteRenderer[] spriteRenderers = transform.GetComponentsInChildren<SpriteRenderer>();
+        foreach (var renderer in spriteRenderers)
+        {
+            Color c = renderer.color;
+            renderer.color = new Color(c.r, c.g, c.b, 0.7f);
+        }
+    }
+
+    public void RevertGrayOut()
+    {
+        SpriteRenderer[] spriteRenderers = transform.GetComponentsInChildren<SpriteRenderer>();
+        foreach (var renderer in spriteRenderers)
+        {
+            Color c = renderer.color;
+            renderer.color = new Color(c.r, c.g, c.b, 1.0f);
+        }
+    }
+
+    private bool CanMove()
+    {
+        return !hasMoved;
+    }
+
+    private bool CanAttack()
+    {
+        return HasRemainingAttacks() && IsAnyEnemyInRange();
+    }
+
+    private bool IsAnyEnemyInRange()
+    {
+        IEnumerable<Unit> enemies = FindObjectsOfType<Unit>().Where(unit => !GameMaster.current.IsCurrentPlayerByTag(unit.tag));
+        foreach (var enemy in enemies)
+        {
+            if (transform.position.ManhattenDistanceTo(enemy.transform.position) <= stats.attackRange)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -42,7 +42,6 @@ public class Shop : MonoBehaviour
             print($"Not enough gold! {item.unit} costs {item.costs} gold, you only have {playerGold.GetGold()}.");
             return;
         }
-        Toggle();
         gm.SetShopSelectedItem(item);
         ShowCreateableTiles();
     }

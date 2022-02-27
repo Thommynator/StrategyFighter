@@ -39,6 +39,7 @@ public class GameMaster : MonoBehaviour
         ConfigureShopView();
         GetGoldIncomeFor(Player.PLAYER1);
         GetGoldIncomeFor(Player.PLAYER2);
+        GrayOutInactiveUnits();
     }
 
     void Update()
@@ -89,7 +90,7 @@ public class GameMaster : MonoBehaviour
 
     }
 
-    private void EndTurn()
+    public void EndTurn()
     {
         turnIndicator.SwitchTurn();
 
@@ -105,6 +106,7 @@ public class GameMaster : MonoBehaviour
             unit.currentRemainingAttacks = unit.stats.numberOfAttacks;
             unit.attackIcon.SetActive(false);
         }
+        GrayOutInactiveUnits();
         ConfigureShopView();
         GetGoldIncomeFor(GetCurrentPlayer());
     }
@@ -120,6 +122,21 @@ public class GameMaster : MonoBehaviour
         foreach (Tile tile in FindObjectsOfType<Tile>())
         {
             tile.Reset();
+        }
+    }
+
+    private void GrayOutInactiveUnits()
+    {
+        foreach (Unit unit in FindObjectsOfType<Unit>())
+        {
+            if (IsCurrentPlayerByTag(unit.tag))
+            {
+                unit.RevertGrayOut();
+            }
+            else
+            {
+                unit.GrayOut();
+            }
         }
     }
 
