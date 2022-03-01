@@ -9,12 +9,17 @@ public class StatsView : MonoBehaviour
 
     [SerializeField] GameObject visuals;
 
-    public void ShowStatsOf(Unit unit)
+    public void ShowStatsOf(Unit unit, bool showDefaultHealth = false)
+    {
+        ShowStatsOf(unit, (Vector2)unit.transform.position, showDefaultHealth);
+    }
+
+    public void ShowStatsOf(Unit unit, Vector3 position, bool showDefaultHealth = false)
     {
         visuals.SetActive(true);
-        transform.position = (Vector2)unit.transform.position + positionOffset;
+        transform.position = position + (Vector3)positionOffset;
 
-        healthText.text = unit.GetCurrentHealth().ToString();
+        healthText.text = showDefaultHealth ? unit.stats.health.ToString() : unit.GetCurrentHealth().ToString();
         armorText.text = unit.stats.armor.ToString();
         attackDamage.text = unit.stats.attackDamage.ToString();
         defenseDamage.text = unit.stats.defenseDamage.ToString();

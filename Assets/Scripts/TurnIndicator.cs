@@ -43,12 +43,12 @@ public class TurnIndicator : MonoBehaviour
     private void ChangeSprite(Sprite sprite)
     {
         var duration = 0.2f;
-        RectTransform rectTransform = GetComponent<RectTransform>();
-        DOTween.To(() => rectTransform.position.y, y => rectTransform.position = new Vector3(rectTransform.position.x, y, rectTransform.position.z), 2400, duration)
+        RectTransform rectTransform = banner.GetComponent<RectTransform>();
+        DOTween.To(() => rectTransform.rotation.y, y => rectTransform.rotation = Quaternion.Euler(0, y, 0), 270, duration)
         .OnComplete(() =>
         {
             banner.sprite = sprite;
-            DOTween.To(() => rectTransform.position.y, y => rectTransform.position = new Vector3(rectTransform.position.x, y, rectTransform.position.z), initialBannerYPos, 5 * duration).SetEase(Ease.OutElastic);
+            DOTween.To(() => rectTransform.rotation.y, y => rectTransform.rotation = Quaternion.Euler(0, y, 0), 0, duration);
         });
     }
 }

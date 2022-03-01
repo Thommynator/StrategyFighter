@@ -8,12 +8,6 @@ public class Shop : MonoBehaviour
     [SerializeField] private Player shopOwner;
     private bool shouldShow = true;
 
-
-    void Start()
-    {
-
-    }
-
     void Update()
     {
 
