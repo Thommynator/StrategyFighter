@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System.Linq;
+using MoreMountains.Feedbacks;
 
 public class Unit : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class Unit : MonoBehaviour
     [SerializeField] private List<AudioClip> attackSounds;
     [SerializeField] private List<AudioClip> hitSounds;
     [SerializeField] private AudioClip selectSound;
-    [SerializeField] private AudioClip placementSound;
+    [SerializeField] private MMFeedbacks placementFeedbacks;
 
 
 
@@ -28,6 +29,7 @@ public class Unit : MonoBehaviour
         attackIcon.SetActive(false);
         currentHealth = stats.health;
         statsView = FindObjectOfType<StatsView>();
+        // placementFeedbacks = GetComponentInChildren<MMFeedbacks>();
     }
 
     protected void OnMouseOver()
@@ -149,7 +151,7 @@ public class Unit : MonoBehaviour
 
                     if (!CanMove() && !CanAttack())
                     {
-                        GrayOut();
+                        GreyOut();
                     }
                 })
             );
@@ -183,7 +185,7 @@ public class Unit : MonoBehaviour
 
         if (!CanMove() && !CanAttack())
         {
-            GrayOut();
+            GreyOut();
         }
     }
 
@@ -241,12 +243,15 @@ public class Unit : MonoBehaviour
         SoundManager.instance.PlayAudio(selectSound);
     }
 
-    public void PlayPlacementSound()
+    public void PlaceUnit()
     {
-        SoundManager.instance.PlayAudio(placementSound);
+        placementFeedbacks.PlayFeedbacks();
+        hasMoved = true;
+        currentRemainingAttacks = 0;
+        GreyOut();
     }
 
-    public void GrayOut()
+    public void GreyOut()
     {
         SpriteRenderer[] spriteRenderers = transform.GetComponentsInChildren<SpriteRenderer>();
         foreach (var renderer in spriteRenderers)

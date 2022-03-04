@@ -1,4 +1,7 @@
 using UnityEngine;
+using MoreMountains.Feedbacks;
+using System.Linq;
+using System.Collections.Generic;
 
 public class Tile : MonoBehaviour
 {
@@ -8,6 +11,12 @@ public class Tile : MonoBehaviour
     public Color highlightColor;
     private bool isReachable;
     private bool isCreateable;
+    public MMFeedbacks wiggleTileFeedbacks;
+
+    void Awake()
+    {
+        wiggleTileFeedbacks = GetComponent<MMFeedbacks>();
+    }
 
     void Start()
     {
@@ -27,11 +36,18 @@ public class Tile : MonoBehaviour
             GameMaster.current.ResetTiles();
             if (item.TryGetComponent<Unit>(out Unit unit))
             {
-                unit.PlayPlacementSound();
-                unit.hasMoved = true;
-                unit.currentRemainingAttacks = 0;
+                unit.PlaceUnit();
+                WiggleNeighborTiles(2.1f);
             }
+        }
+    }
 
+    private void WiggleNeighborTiles(float distanceRange)
+    {
+        IEnumerable<Tile> neighborTiles = FindObjectsOfType<Tile>().Where(tile => tile.transform.position.ManhattenDistanceTo(this.transform.position) <= distanceRange);
+        foreach (Tile tile in neighborTiles)
+        {
+            tile.wiggleTileFeedbacks.PlayFeedbacks();
         }
     }
 

@@ -135,7 +135,7 @@ public class GameMaster : MonoBehaviour
             }
             else
             {
-                unit.GrayOut();
+                unit.GreyOut();
             }
         }
     }
