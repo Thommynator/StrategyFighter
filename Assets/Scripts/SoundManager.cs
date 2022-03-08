@@ -24,4 +24,9 @@ public class SoundManager : MonoBehaviour
         if (clips == null || clips.Count == 0) return;
         PlayAudio(clips[Random.Range(0, clips.Count)]);
     }
+
+    public void ToggleMusic()
+    {
+        musicSource.enabled = !musicSource.enabled;
+    }
 }
