@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEditor;
 using System.Linq;
 using UnityEngine.SceneManagement;
 
@@ -10,6 +9,7 @@ public class GameMaster : MonoBehaviour
     public CursorFollower cursorFollower;
     public Unit selectedUnit;
     public ShopItem shopSelectedItem;
+    public Unit previewUnit;
     public AudioClip celebrationSound;
 
     [SerializeField] private GameObject tileBorderHighlight;
@@ -39,6 +39,8 @@ public class GameMaster : MonoBehaviour
         ConfigureShopView();
         GetGoldIncomeFor(Player.PLAYER1);
         GetGoldIncomeFor(Player.PLAYER2);
+        ResetUnitStats();
+        ResetTiles();
         GrayOutInactiveUnits();
     }
 
@@ -94,18 +96,10 @@ public class GameMaster : MonoBehaviour
     {
         turnIndicator.SwitchTurn();
 
-        if (selectedUnit != null)
-        {
-            selectedUnit.isSelected = false;
-            selectedUnit = null;
-        }
+        ResetSelectedUnit();
+        ResetPreviewUnit();
         ResetTiles();
-        foreach (Unit unit in FindObjectsOfType<Unit>())
-        {
-            unit.hasMoved = false;
-            unit.currentRemainingAttacks = unit.stats.numberOfAttacks;
-            unit.attackIcon.SetActive(false);
-        }
+        ResetUnitStats();
         GrayOutInactiveUnits();
         ConfigureShopView();
         GetGoldIncomeFor(GetCurrentPlayer());
@@ -122,6 +116,34 @@ public class GameMaster : MonoBehaviour
         foreach (Tile tile in FindObjectsOfType<Tile>())
         {
             tile.Reset();
+        }
+    }
+
+    private void ResetUnitStats()
+    {
+        foreach (Unit unit in FindObjectsOfType<Unit>())
+        {
+            unit.hasMoved = false;
+            unit.currentRemainingAttacks = unit.stats.numberOfAttacks;
+            unit.attackIcon.SetActive(false);
+        }
+    }
+
+    private void ResetSelectedUnit()
+    {
+        if (selectedUnit != null)
+        {
+            selectedUnit.isSelected = false;
+            selectedUnit = null;
+        }
+    }
+
+    public void ResetPreviewUnit()
+    {
+        if (previewUnit != null)
+        {
+            Destroy(previewUnit.gameObject);
+            this.previewUnit = null;
         }
     }
 
@@ -142,17 +164,14 @@ public class GameMaster : MonoBehaviour
 
     public void SetShopSelectedItem(ShopItem shopItem)
     {
-        if (selectedUnit != null)
-        {
-            selectedUnit.isSelected = false;
-            selectedUnit = null;
-        }
-        this.shopSelectedItem = shopItem;
+        ResetSelectedUnit();
+        ResetPreviewUnit();
+        shopSelectedItem = shopItem;
 
-        // FIXME doesn't work yet
-        // Texture2D texture = AssetPreview.GetAssetPreview(placeableItem.gameObject);
-        // Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-        // cursorFollower.SetCursorSprite(sprite);
+        var unit = Instantiate<Unit>(shopItem.unit);
+        unit.gameObject.AddComponent<TileDiscreteMouseFollower>();
+        unit.GetComponent<Collider2D>().enabled = false; // disable to prevent that the preview is clickable
+        previewUnit = unit;
     }
 
     public Unit GetAndPayForShopSelectedItem()

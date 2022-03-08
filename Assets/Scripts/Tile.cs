@@ -9,9 +9,10 @@ public class Tile : MonoBehaviour
     public Sprite[] sprites;
     public LayerMask obstacleLayer;
     public Color highlightColor;
+    [SerializeField] GameObject attackRangeBorderHighlight;
     private bool isReachable;
     private bool isCreateable;
-    public MMFeedbacks wiggleTileFeedbacks;
+    private MMFeedbacks wiggleTileFeedbacks;
 
     void Awake()
     {
@@ -22,6 +23,7 @@ public class Tile : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = sprites[Random.Range(0, sprites.Length)];
+        attackRangeBorderHighlight.SetActive(false);
     }
 
     private void OnMouseDown()
@@ -33,6 +35,7 @@ public class Tile : MonoBehaviour
         else if (isCreateable)
         {
             Unit item = Instantiate(GameMaster.current.GetAndPayForShopSelectedItem(), new Vector3(transform.position.x, transform.position.y, -1), Quaternion.identity);
+            GameMaster.current.ResetPreviewUnit();
             GameMaster.current.ResetTiles();
             if (item.TryGetComponent<Unit>(out Unit unit))
             {
@@ -61,13 +64,13 @@ public class Tile : MonoBehaviour
         return true;
     }
 
-    public void HighlightReachable()
+    public void ShowReachableHighlight()
     {
         spriteRenderer.color = highlightColor;
         isReachable = true;
     }
 
-    public void HighlightCreateable()
+    public void ShowCreateableHighlight()
     {
         spriteRenderer.color = highlightColor;
         isCreateable = true;
@@ -78,6 +81,10 @@ public class Tile : MonoBehaviour
         spriteRenderer.color = Color.white;
         isReachable = false;
         isCreateable = false;
+        HideAttackBorderHighlight();
     }
+
+    public void ShowAttackBorderHighlight() => attackRangeBorderHighlight.SetActive(true);
+    public void HideAttackBorderHighlight() => attackRangeBorderHighlight.SetActive(false);
 
 }

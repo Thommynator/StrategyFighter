@@ -1,8 +1,10 @@
 using TMPro;
+using UnityEngine;
 
 public class King : Unit
 {
     public TextMeshProUGUI kingHealthText;
+    [SerializeField] private ParticleSystem heartParticles;
 
     protected override void Start()
     {
@@ -12,11 +14,13 @@ public class King : Unit
 
     protected override void TakeDamage(int damage)
     {
+        if (damage <= 0) return;
         base.TakeDamage(damage);
         if (currentHealth <= 0)
         {
             GameMaster.current.GameOver(GameMaster.current.GetPlayerByTag(tag));
         }
+        heartParticles.Play();
         UpdateKingHealthText();
     }
 

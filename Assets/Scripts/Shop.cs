@@ -44,7 +44,7 @@ public class Shop : MonoBehaviour
     {
         foreach (Tile tile in FindObjectsOfType<Tile>().Where(tile => tile.IsClear()))
         {
-            tile.HighlightCreateable();
+            tile.ShowCreateableHighlight();
         }
     }
 

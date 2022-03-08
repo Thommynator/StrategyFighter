@@ -14,6 +14,7 @@ public class Unit : MonoBehaviour
     protected int currentHealth;
     private List<Unit> enemiesInRange = new List<Unit>();
     private StatsView statsView;
+    private Camera mainCamera;
 
     [Header("Sounds")]
     [SerializeField] private List<AudioClip> dieSounds;
@@ -22,14 +23,12 @@ public class Unit : MonoBehaviour
     [SerializeField] private AudioClip selectSound;
     [SerializeField] private MMFeedbacks placementFeedbacks;
 
-
-
     protected virtual void Start()
     {
+        mainCamera = Camera.main;
         attackIcon.SetActive(false);
         currentHealth = stats.health;
         statsView = FindObjectOfType<StatsView>();
-        // placementFeedbacks = GetComponentInChildren<MMFeedbacks>();
     }
 
     protected void OnMouseOver()
@@ -46,7 +45,7 @@ public class Unit : MonoBehaviour
 
     protected void OnMouseDown()
     {
-
+        GameMaster.current.ResetPreviewUnit();
         HideAllAttackIcons();
 
         // deselect current unit
@@ -72,10 +71,11 @@ public class Unit : MonoBehaviour
             GameMaster.current.ResetTiles();
 
             GetEnemiesInRange();
-            GetWalkableTiles();
+            HighlightWalkableTiles();
+            HighlightAttackableTiles();
         }
 
-        Collider2D collider = Physics2D.OverlapCircle(Camera.main.ScreenToWorldPoint(Input.mousePosition), 0.2f);
+        Collider2D collider = Physics2D.OverlapCircle(mainCamera.ScreenToWorldPoint(Input.mousePosition), 0.2f);
         Unit unit = collider.GetComponent<Unit>();
         if (unit != null && GameMaster.current.selectedUnit != null)
         {
@@ -87,7 +87,7 @@ public class Unit : MonoBehaviour
         }
     }
 
-    protected void GetWalkableTiles()
+    protected void HighlightWalkableTiles()
     {
         if (hasMoved)
         {
@@ -98,9 +98,27 @@ public class Unit : MonoBehaviour
         {
             if (tile.IsClear() && transform.position.ManhattenDistanceTo(tile.transform.position) <= stats.movementRange)
             {
-                tile.HighlightReachable();
+                tile.ShowReachableHighlight();
             }
         }
+    }
+
+    protected void HighlightAttackableTiles()
+    {
+        if (!HasRemainingAttacks())
+        {
+            return;
+        }
+
+        foreach (Tile tile in FindObjectsOfType<Tile>())
+        {
+            var distaceToTile = transform.position.ManhattenDistanceTo(tile.transform.position);
+            if (distaceToTile > 0 && distaceToTile <= stats.attackRange)
+            {
+                tile.ShowAttackBorderHighlight();
+            }
+        }
+
     }
 
     protected void GetEnemiesInRange()
@@ -181,7 +199,7 @@ public class Unit : MonoBehaviour
             TakeDamage(receivingDamage);
         }
 
-        GetWalkableTiles(); // check again, because maybe a previously blocking enemy might be dead now
+        HighlightWalkableTiles(); // check again, because maybe a previously blocking enemy might be dead now
 
         if (!CanMove() && !CanAttack())
         {
