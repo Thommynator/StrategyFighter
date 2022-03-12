@@ -3,7 +3,6 @@ using UnityEngine;
 using DG.Tweening;
 using System.Linq;
 using MoreMountains.Feedbacks;
-
 public class Unit : MonoBehaviour
 {
     public UnitStats stats;
@@ -15,13 +14,15 @@ public class Unit : MonoBehaviour
     private List<Unit> enemiesInRange = new List<Unit>();
     private StatsView statsView;
     private Camera mainCamera;
+    private GameObject sleepFxObject;
+    [SerializeField] private ParticleSystem sleepFx;
+    [SerializeField] private MMFeedbacks placementFeedbacks;
 
     [Header("Sounds")]
     [SerializeField] private List<AudioClip> dieSounds;
     [SerializeField] private List<AudioClip> attackSounds;
     [SerializeField] private List<AudioClip> hitSounds;
     [SerializeField] private AudioClip selectSound;
-    [SerializeField] private MMFeedbacks placementFeedbacks;
 
     protected virtual void Start()
     {
@@ -169,7 +170,7 @@ public class Unit : MonoBehaviour
 
                     if (!CanMove() && !CanAttack())
                     {
-                        GreyOut();
+                        Sleep();
                     }
                 })
             );
@@ -203,7 +204,7 @@ public class Unit : MonoBehaviour
 
         if (!CanMove() && !CanAttack())
         {
-            GreyOut();
+            Sleep();
         }
     }
 
@@ -266,11 +267,14 @@ public class Unit : MonoBehaviour
         placementFeedbacks.PlayFeedbacks();
         hasMoved = true;
         currentRemainingAttacks = 0;
-        GreyOut();
+        Sleep();
     }
 
-    public void GreyOut()
+    public void Sleep()
     {
+        print("Sleep");
+        print(sleepFx);
+        sleepFx?.Play();
         SpriteRenderer[] spriteRenderers = transform.GetComponentsInChildren<SpriteRenderer>();
         foreach (var renderer in spriteRenderers)
         {
@@ -279,8 +283,9 @@ public class Unit : MonoBehaviour
         }
     }
 
-    public void RevertGrayOut()
+    public void WakeUp()
     {
+        sleepFx?.Stop();
         SpriteRenderer[] spriteRenderers = transform.GetComponentsInChildren<SpriteRenderer>();
         foreach (var renderer in spriteRenderers)
         {

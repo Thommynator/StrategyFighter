@@ -3,7 +3,12 @@ guid: 6c48312bf78e18047a55ebb99708ae4b
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - stats: {instanceID: 0}
+  - attackIcon: {instanceID: 0}
+  - sleepFx: {fileID: 4714919265705028583, guid: af7f871bbfedf1f4fabe1d321b4e07d5, type: 3}
+  - placementFeedbacks: {instanceID: 0}
+  - selectSound: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

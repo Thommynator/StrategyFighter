@@ -153,11 +153,11 @@ public class GameMaster : MonoBehaviour
         {
             if (IsCurrentPlayerByTag(unit.tag))
             {
-                unit.RevertGrayOut();
+                unit.WakeUp();
             }
             else
             {
-                unit.GreyOut();
+                unit.Sleep();
             }
         }
     }
